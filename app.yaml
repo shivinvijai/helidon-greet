@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: greeting
-          image: ap-mumbai-1.ocir.io/idx9wbxtnehn/greeting:1.0
+          image: ap-mumbai-1.ocir.io/idx9wbxtnehn/greeting:latest
           ports:
             - containerPort: 8080
           imagePullPolicy: Always
