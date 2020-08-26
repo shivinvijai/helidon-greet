@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  name: helidon-greet
+  labels:
+    app: helidon-greet
+spec:
+  selector:
+    app: helidon-greet
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  externalTrafficPolicy: Local
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: helidon-greet
+  name: helidon-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: helidon-greet
+  template:
+    metadata:
+      labels:
+        app: helidon-greet
+    spec:
+      containers:
+        - name: greeting
+          image: ap-mumbai-1.ocir.io/idx9wbxtnehn/greeting:1.0
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
+      imagePullSecrets:
+        - name: ocirsecret
